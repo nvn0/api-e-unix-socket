@@ -1,13 +1,15 @@
 import socket
 import os
+import json
+import time
 
-# Caminho do arquivo do socket
+# Caminho do ficheiro do socket
 socket_path = "/tmp/meu_socket"
 
 def socketPath():
     return "/tmp/meu_socket"
 
-# Verificando se o arquivo do socket existe
+# Verificar se o ficheiro do socket existe
 if not os.path.exists(socket_path):
     print("O arquivo do socket não existe.")
     exit()
@@ -18,21 +20,28 @@ def sendPort(container, tipo, porta):
     socket_path = socketPath()
 
     try:
-        # Criando um socket Unix
+        # Criar um socket Unix
         client_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 
-        # Conectando ao servidor Unix socket
+        # Conectar ao servidor Unix socket
         client_socket.connect(socket_path)
 
-        # Enviando uma mensagem para o servidor
-        message = container+tipo+porta
-        client_socket.sendall(message.encode())
+        # Enviar uma mensagem para o servidor
+        
+        json_data = {
+            "Container": container,
+            "Type": tipo,
+            "Port": porta
+        }
+        
+        client_socket.send(json.dumps(json_data).encode())
 
-        # Recebendo a resposta do servidor
-        response = client_socket.recv(1024)
-        print("Resposta do servidor:", response.decode())
 
-        # Fechando o socket do cliente
+        time.sleep(1.5)
+        # Receber a resposta do servidor
+        #response_json = client_socket.recv(1024).decode()))
+
+        # Fechar o socket do cliente
         client_socket.close()
 
     except Exception as e:
