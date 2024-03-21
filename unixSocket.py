@@ -40,6 +40,11 @@ def sendPort(container, tipo, porta):
         time.sleep(1.5)
         # Receber a resposta do servidor
         #response_json = client_socket.recv(1024).decode()))
+        #response = json.loads(response_json)
+
+        # mosrar a resposta do servidor
+        #print("Status:", response["Status"])
+        #print("Mensagem:", response["Mensagem"])
 
         # Fechar o socket do cliente
         client_socket.close()
