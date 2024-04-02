@@ -20,6 +20,7 @@ def send_port():
 #    {
 #        "Container":
 #        "Type":
+#        "Action":
 #        "Port":
 #    }
 
@@ -27,11 +28,13 @@ def send_port():
 
     container = data['Container']
     tipo = data['Type']
+    action = data['Action']
     porta = data['Port']
     
 
     print(container)
     print(tipo)
+    print(action)
     print(porta)
     
     sendPort(container, tipo, porta)
@@ -41,7 +44,34 @@ def send_port():
     return 'Sucesso', 201
 
 
+@app.route("/get_info", methods=["POST"])
+def get_info():
+    data = request.get_json()
 
+#    {
+#        "Container":
+#        "Type":
+#        "Action":
+#    }
+
+    data = request.get_json()
+
+    container = data['Container']
+    tipo = data['Type']
+    action = data['Action']
+    
+    
+
+    print(container)
+    print(tipo)
+    print(action)
+   
+    
+    GetInfo(container, tipo, action)
+
+    
+    return jsonify(data, "WORKING!!!"), 201
+    return 'Sucesso', 201
 
 
 if __name__ == "__main__":
