@@ -67,10 +67,10 @@ def get_info():
     print(action)
    
     
-    GetInfo(container, tipo, action)
+    resposta = GetInfo(container, tipo, action)
 
     
-    return jsonify(data, "WORKING!!!"), 201
+    return jsonify(data, resposta, "WORKING!!!"), 201
     return 'Sucesso', 201
 
 

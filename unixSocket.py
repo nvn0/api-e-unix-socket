@@ -82,12 +82,16 @@ def GetInfo(container, tipo, action):
         response_json = client_socket.recv(1024).decode()
         response = json.loads(response_json)
 
-        # mosrar a resposta do servidor
+        # mostrar a resposta do servidor
         print("Status:", response["Status"])
         print("Ports:", response["Ports"])
-
+        
+        
+        
         # Fechar o socket do cliente
         client_socket.close()
+        
+        return response
 
     except Exception as e:
         print("Ocorreu um erro:", e)
