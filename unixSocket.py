@@ -15,7 +15,7 @@ if not os.path.exists(socket_path):
     exit()
 
 
-def sendPort(container, tipo, porta):
+def sendPort(container, tipo, firewall, porta):
 
     socket_path = socketPath()
 
@@ -31,6 +31,7 @@ def sendPort(container, tipo, porta):
         json_data = {
             "Container": container,
             "Type": tipo,
+            "Fw": firewall,
             "Port": porta
         }
         

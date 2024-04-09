@@ -21,6 +21,7 @@ def send_port():
 #        "Container":
 #        "Type":
 #        "Action":
+#        "Fw":
 #        "Port":
 #    }
 
@@ -29,15 +30,17 @@ def send_port():
     container = data['Container']
     tipo = data['Type']
     action = data['Action']
+    firewall = data['Fw']
     porta = data['Port']
     
 
     print(container)
     print(tipo)
     print(action)
+    print(firewall)
     print(porta)
     
-    sendPort(container, tipo, porta)
+    sendPort(container, tipo, firewall, porta)
 
     
     return jsonify(data, "WORKING!!!"), 201
