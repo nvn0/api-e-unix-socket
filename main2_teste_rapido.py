@@ -22,6 +22,7 @@ def send_port():
 #        "Type":
 #        "Action":
 #        "Fw":
+#        "protocol":
 #        "Port":
 #    }
 
@@ -31,6 +32,7 @@ def send_port():
     tipo = data['Type']
     action = data['Action']
     firewall = data['Fw']
+    protocol = data['Protocol']
     porta = data['Port']
     
 
@@ -38,9 +40,10 @@ def send_port():
     print(tipo)
     print(action)
     print(firewall)
+    print(protocol)
     print(porta)
     
-    sendPort(container, tipo, firewall, porta)
+    sendPort(container, tipo, action, firewall, protocol, porta)
 
     
     return jsonify(data, "WORKING!!!"), 201
@@ -54,26 +57,25 @@ def get_info():
 #    {
 #        "Container":
 #        "Type":
-#        "Action":
 #    }
 
     data = request.get_json()
 
     container = data['Container']
     tipo = data['Type']
-    action = data['Action']
+    #action = data['Action']
     
     
 
     print(container)
     print(tipo)
-    print(action)
+    #print(action)
    
     
-    resposta = GetInfo(container, tipo, action)
+    resposta = GetInfo(container, tipo)
 
     
-    return jsonify(data, resposta, "WORKING!!!"), 201
+    return jsonify(data, "Resposta: ",resposta, "WORKING!!!"), 201
     return 'Sucesso', 201
 
 

@@ -15,7 +15,7 @@ if not os.path.exists(socket_path):
     exit()
 
 
-def sendPort(container, tipo, firewall, porta):
+def sendPort(container, tipo, action, firewall, protocol, porta):
 
     socket_path = socketPath()
 
@@ -31,7 +31,9 @@ def sendPort(container, tipo, firewall, porta):
         json_data = {
             "Container": container,
             "Type": tipo,
+            "Action": action,
             "Fw": firewall,
+            "protocol": protocol,
             "Port": porta
         }
         
@@ -56,7 +58,7 @@ def sendPort(container, tipo, firewall, porta):
 
 
 
-def GetInfo(container, tipo, action):
+def GetInfo(container, tipo):
 
     socket_path = socketPath()
 
@@ -72,7 +74,7 @@ def GetInfo(container, tipo, action):
         json_data = {
             "Container": container,
             "Type": tipo,
-            "Action": action
+            "Action": "GetInfo"
         }
         
         client_socket.send(json.dumps(json_data).encode())
@@ -85,6 +87,7 @@ def GetInfo(container, tipo, action):
 
         # mostrar a resposta do servidor
         print("Status:", response["Status"])
+        print("Estado:", response["Estado"])
         print("Ports:", response["Ports"])
         
         
