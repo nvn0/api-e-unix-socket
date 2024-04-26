@@ -10,8 +10,43 @@ app = Flask(__name__)
 def homepage():
     return 'The API is running...', 200
     
+@app.route("/host_fw", methods=["POST"]) # executar no host
+def host_fw():
+    data = request.get_json()
+
+#    {
+#        "Action":
+#        "Fw":
+#        "protocol":
+#        "Port":
+#    }
+
+    data = request.get_json()
+
     
+    action = data['Action']
+    firewall = data['Fw']
+    protocol = data['Protocol']
+    porta = data['Port']
     
+
+   
+    print(action)
+    print(firewall)
+    print(protocol)
+    print(porta)
+
+
+    hostfw(action, firewall, protocol, porta)
+
+    
+    return jsonify(data, "WORKING!!!"), 201
+    return 'Sucesso', 201    
+
+
+
+
+########################## containers ###################################    
     
 @app.route("/send_port", methods=["POST"])
 def send_port():
@@ -42,7 +77,8 @@ def send_port():
     print(firewall)
     print(protocol)
     print(porta)
-    
+
+
     sendPort(container, tipo, action, firewall, protocol, porta)
 
     
