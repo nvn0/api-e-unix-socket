@@ -4,14 +4,14 @@ import json
 import time
 
 # Caminho do ficheiro do socket
-socket_path = "/tmp/meu_socket"
+socket_path = "/tmp/socket_proj"
 
 def socketPath():
     return "/tmp/meu_socket"
 
 # Verificar se o ficheiro do socket existe
 if not os.path.exists(socket_path):
-    print("O arquivo do socket não existe.")
+    print("O ficheiro do socket não existe.")
     exit()
 
 
