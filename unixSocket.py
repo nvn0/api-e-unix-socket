@@ -56,6 +56,47 @@ def hostfw(action, firewall, protocol, porta):
         print("Ocorreu um erro:", e)
 
 
+def host_nat(action, firewall, protocol, porta, cont_ip, cont_port):
+
+    socket_path = socketPath()
+
+    try:
+        # Criar um socket Unix
+        client_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+
+        # Conectar ao servidor Unix socket
+        client_socket.connect(socket_path)
+
+        # Enviar uma mensagem para o servidor
+        
+        json_data = {
+            "Type": "host",
+            "Action": action,
+            "Fw": firewall,
+            "Protocol": protocol,
+            "Port": porta,
+            "Container_internal_ip": cont_ip,
+            "Container_internal_port": cont_port
+        }
+        
+        client_socket.send(json.dumps(json_data).encode())
+
+
+        time.sleep(1.7)
+        # Receber a resposta do servidor
+        #response_json = client_socket.recv(1024).decode()))
+        #response = json.loads(response_json)
+
+        # mosrar a resposta do servidor
+        #print("Status:", response["Status"])
+        #print("Mensagem:", response["Mensagem"])
+
+        # Fechar o socket do cliente
+        client_socket.close()
+
+    except Exception as e:
+        print("Ocorreu um erro:", e)
+
 ########################## containers ###################################   
 
 

@@ -44,6 +44,44 @@ def host_fw():
     return 'Sucesso', 201    
 
 
+@app.route("/host_nat", methods=["POST"]) # executar no host
+def host_fw():
+    data = request.get_json()
+
+#    {
+#        "Action":
+#        "Fw":
+#        "Protocol":
+#        "Port":
+#        "Container_internal_ip":
+#        "Container_internal_port":
+#    }
+
+    data = request.get_json()
+
+    
+    action = data['Action']
+    firewall = data['Fw']
+    protocol = data['Protocol']
+    porta = data['Port']
+    cont_ip = data['Container_internal_ip']
+    cont_port = data['Container_internal_port']
+    
+
+   
+    print(action)
+    print(firewall)
+    print(protocol)
+    print(porta)
+    print(cont_ip)
+    print(cont_port)
+
+
+    host_nat(action, firewall, protocol, porta, cont_ip, cont_port)
+
+    
+    return jsonify(data, "WORKING!!!"), 201
+    return 'Sucesso', 201   
 
 
 ########################## containers ###################################    
