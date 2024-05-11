@@ -45,7 +45,7 @@ def host_fw():
 
 
 @app.route("/host_nat", methods=["POST"]) # executar no host
-def host_fw():
+def host_nat():
     data = request.get_json()
 
 #    {
