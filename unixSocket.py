@@ -56,7 +56,7 @@ def hostfw(action, firewall, protocol, porta):
         print("Ocorreu um erro:", e)
 
 
-def host_nat(action, firewall, protocol, porta, cont_ip, cont_port):
+def hostnat(action, firewall, protocol, porta, cont_ip, cont_port):
 
     socket_path = socketPath()
 

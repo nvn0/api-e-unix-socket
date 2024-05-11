@@ -77,7 +77,7 @@ def host_nat():
     print(cont_port)
 
 
-    host_nat(action, firewall, protocol, porta, cont_ip, cont_port)
+    hostnat(action, firewall, protocol, porta, cont_ip, cont_port)
 
     
     return jsonify(data, "WORKING!!!"), 201
