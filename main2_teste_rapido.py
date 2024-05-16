@@ -88,6 +88,7 @@ def host_fw():
         porta = data['Port']
     except:
         print("Erro ao receber dados!")
+        return "Error ao receber os dados", 500
     else:
 
    
@@ -136,6 +137,7 @@ def host_nat():
         
     except:
         print("Erro ao receber dados!")
+        return "Error ao receber os dados", 500
     else:
 
        
@@ -185,6 +187,7 @@ def send_port():
         
     except:
         print("Erro ao receber dados!")
+        return "Error ao receber os dados", 500
     else:
 
         print(container)
@@ -219,6 +222,7 @@ def get_info():
         #action = data['Action']
     except:
         print("Erro ao receber dados!")
+        return "Error ao receber os dados", 500
     else:
     
 
