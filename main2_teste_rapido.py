@@ -133,6 +133,7 @@ def host_nat():
 #        "Fw":
 #        "Protocol":
 #        "Port":
+#        "External_ip":
 #        "Container_internal_ip":
 #        "Container_internal_port":
 #    }
@@ -141,6 +142,7 @@ def host_nat():
     firewall = ""
     protocol = ""
     porta = ""
+    external_ip = ""
     cont_ip = ""
     cont_port = ""
 
@@ -152,6 +154,7 @@ def host_nat():
         firewall = data['Fw']
         protocol = data['Protocol']
         porta = data['Port']
+        external_ip = data['External_ip']
         cont_ip = data['Container_internal_ip']
         cont_port = data['Container_internal_port']
         
@@ -164,11 +167,12 @@ def host_nat():
         print(firewall)
         print(protocol)
         print(porta)
+        print(external_ip)
         print(cont_ip)
         print(cont_port)
 
         if is_valid_ip(cont_ip) == True:
-            hostnat(action, firewall, protocol, porta, cont_ip, cont_port)
+            hostnat(action, firewall, protocol, porta, external_ip, cont_ip, cont_port)
             print("IP do container validado!")
             return jsonify(data, "WORKING!!!"), 201
         else:
