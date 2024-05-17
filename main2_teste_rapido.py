@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import re
-from flask_httpauth import HTTPBasicAuth
-#from werkzeug.security import generate_password_hash, check_password_hash
+#from flask_httpauth import HTTPBasicAuth
+import json
 #import os
-#from unixSocket import *
+from unixSocket import *
 from pass_hash import *
 
 
@@ -11,50 +11,70 @@ from pass_hash import *
 
 app = Flask(__name__)
 
-auth = HTTPBasicAuth()
 
 
 
-USER_FILE = 'users.txt'
+#######################################  Sec de RE  ###################################################
 
-users = {}
 
-def read_users():
-    #users = {}
-    try:
-        with open(USER_FILE, 'r') as f:
-            for line in f:
-                username, password_hash = line.strip().split(':')
-                users[username] = password_hash
-    except FileNotFoundError:
-        pass  # Arquivo ainda não existe, sem problema
-    return users
+re_ip = r'^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$'
 
-users = read_users()
-#print(users)
 
-@auth.verify_password
-def verify_password(username, password):
-    try:
-        #users = read_users()
-        ph = phash(password)
-        if username in users and ph == users[username]:
-            return username
-        return None
-    except:
-        print("erro ao verificar user")
+def is_valid_ip(ip):
+    if re.match(re_ip, ip):
+        return True
+    else:
+        return False
+
+
+##############################################################################################
 
 
 
 
 
+############################ Sec de autenticação ########################################
 
-
-
-
+#auth = HTTPBasicAuth()
+#
+#
+#
+#USER_FILE = 'users.txt'
+#
+#users = {}
+#
+#def read_users():
+#    #users = {}
+#    try:
+#        with open(USER_FILE, 'r') as f:
+#            for line in f:
+#                username, password_hash = line.strip().split(':')
+#                users[username] = password_hash
+#    except FileNotFoundError:
+#        pass  # Arquivo ainda não existe, sem problema
+#    return users
+#
+#users = read_users()
+##print(users)
+#
+#@auth.verify_password
+#def verify_password(username, password):
+#    try:
+#        #users = read_users()
+#        ph = phash(password)
+#        if username in users and ph == users[username]:
+#            return username
+#        return None
+#    except:
+#        print("erro ao verificar user")
+#
 
 
 # adicionar decorator -> @auth.login_required
+
+####################################################################
+
+
 
 
 
@@ -126,7 +146,7 @@ def host_nat():
 
     try:
         data = request.get_json()
-
+        print(data)
         
         action = data['Action']
         firewall = data['Fw']
@@ -135,9 +155,8 @@ def host_nat():
         cont_ip = data['Container_internal_ip']
         cont_port = data['Container_internal_port']
         
-    except:
-        print("Erro ao receber dados!")
-        return "Error ao receber os dados", 500
+    except Exception as error:
+        return error, 400
     else:
 
        
@@ -148,11 +167,13 @@ def host_nat():
         print(cont_ip)
         print(cont_port)
 
-
-        hostnat(action, firewall, protocol, porta, cont_ip, cont_port)
-
-    
-        return jsonify(data, "WORKING!!!"), 201
+        if is_valid_ip(cont_ip) == True:
+            hostnat(action, firewall, protocol, porta, cont_ip, cont_port)
+            print("IP do container validado!")
+            return jsonify(data, "WORKING!!!"), 201
+        else:
+            print("Formato do IP incorreto!")
+            return jsonify(data, "Erro no formato do IP"), 400
 
 
 ########################## containers ###################################    
