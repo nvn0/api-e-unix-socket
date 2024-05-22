@@ -82,7 +82,7 @@ def is_valid_ip(ip):
 
 @app.route('/')
 def homepage():
-    print(request.remote_addr)
+    #print(request.remote_addr)
     
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         print(request.environ['REMOTE_ADDR'])
