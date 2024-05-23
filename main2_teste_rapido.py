@@ -128,7 +128,7 @@ def host_fw():
         hostfw(action, firewall, protocol, porta)
 
         
-        return jsonify(data, "WORKING!!!"), 201  
+        return jsonify(data, "Solicitacao bem sucedida!"), 201  
 
 
 @app.route("/host_nat", methods=["POST"]) # executar no host
@@ -189,8 +189,8 @@ def host_nat():
 
 ########################## containers ###################################    
     
-@app.route("/send_port", methods=["POST"])
-def send_port():
+@app.route("/cont_port", methods=["POST"])
+def cont_port():
     
 
 #    {
@@ -230,7 +230,7 @@ def send_port():
         print(porta)
 
 
-        sendPort(container, tipo, action, firewall, protocol, porta)
+        contPort(container, tipo, action, firewall, protocol, porta)
 
         
         return jsonify(data, "WORKING!!!"), 201

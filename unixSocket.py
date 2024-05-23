@@ -21,10 +21,10 @@ def hostfw(action, firewall, protocol, porta):
     socket_path = socketPath()
 
     try:
-        # Criar um socket Unix
+        # Criar uma Unix socket
         client_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 
-        # Conectar ao servidor Unix socket
+        # Conectar a Unix socket
         client_socket.connect(socket_path)
 
         # Enviar uma mensagem para o servidor
@@ -42,10 +42,10 @@ def hostfw(action, firewall, protocol, porta):
 
         time.sleep(1.5)
         # Receber a resposta do servidor
-        #response_json = client_socket.recv(1024).decode()))
+        #response_json = client_socket.recv(1024).decode()
         #response = json.loads(response_json)
 
-        # mosrar a resposta do servidor
+        # mostrar a resposta do servidor
         #print("Status:", response["Status"])
         #print("Mensagem:", response["Mensagem"])
 
@@ -85,7 +85,7 @@ def hostnat(action, firewall, protocol, porta, external_ip, cont_ip, cont_port):
 
         time.sleep(1.7)
         # Receber a resposta do servidor
-        #response_json = client_socket.recv(1024).decode()))
+        #response_json = client_socket.recv(1024).decode()
         #response = json.loads(response_json)
 
         # mosrar a resposta do servidor
@@ -101,7 +101,7 @@ def hostnat(action, firewall, protocol, porta, external_ip, cont_ip, cont_port):
 ########################## containers ###################################   
 
 
-def sendPort(container, tipo, action, firewall, protocol, porta):
+def contPort(container, tipo, action, firewall, protocol, porta):
 
     socket_path = socketPath()
 
@@ -128,7 +128,7 @@ def sendPort(container, tipo, action, firewall, protocol, porta):
 
         time.sleep(1.5)
         # Receber a resposta do servidor
-        #response_json = client_socket.recv(1024).decode()))
+        #response_json = client_socket.recv(1024).decode()
         #response = json.loads(response_json)
 
         # mosrar a resposta do servidor
