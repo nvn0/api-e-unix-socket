@@ -38,9 +38,8 @@ def createDm(user_id):
     
     
 
-def send_dm(user_id):
+def Send_dm_discord(user_id):
 
-    #id = int(input("user ID: "))
     
     channel_id = createDm(user_id)
     
