@@ -93,6 +93,43 @@ def homepage():
     
 
 
+@app.route("/get_ip_ports", methods=["POST"]) # executar no host
+def host_get_nat_ip_ports():
+    
+
+#    {
+#        "Action":
+#        "External_ip":
+#    }
+
+    action = ""
+    external_ip = ""
+
+
+    try:
+        data = request.get_json()
+
+        
+        action = data['Action']
+        external_ip = data['External_ip']
+        
+    except:
+        print("Erro ao receber dados!")
+        return "Error ao receber os dados", 500
+    else:
+
+   
+        print(action)
+        print(external_ip)
+
+
+        host_nat_ip_ports(action, external_ip)
+
+        
+        return jsonify(data, "Solicitacao bem sucedida!"), 201 
+
+
+
  
 @app.route("/host_fw", methods=["POST"]) # executar no host
 def host_fw():
