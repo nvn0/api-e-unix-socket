@@ -79,9 +79,16 @@ def host_nat_ip_ports(action, external_ip):
                 # Exibe a localização
                 if "location" in response:
                     print(f"Location: {response.get('location', '')}")
-                    
+                   
+            elif isinstance(response, list):
+                print("Response is a list of dictionaries:")
+                for item in response:
+                    if isinstance(item, dict):
+                        print(json.dumps(item, indent=2))
+                    else:
+                        print(f"Unexpected item in list: {item}")       
             else:
-            print("Unexpected response format:", response)
+                print("Unexpected response format:", response)
 
 
         #----------------------------------------------------------------------
