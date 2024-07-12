@@ -38,15 +38,71 @@ def host_nat_ip_ports(action, external_ip):
         client_socket.send(json.dumps(json_data).encode())
 
 
+
+
+        #------------------- funçoes de formatação ---------------------------
+
+        def receive_full_response(client_socket):
+            buffer_size = 1024
+            response_bytes = bytearray()
+
+            while True:
+                part = client_socket.recv(buffer_size)
+                response_bytes.extend(part)
+                if len(part) < buffer_size:
+                    break
+
+            return response_bytes.decode()
+
+
+
+
+
+
+        def display_response(response):
+            if isinstance(response, dict):
+                # Exibe as portas
+                if "ports" in response:
+                    print("Ports:")
+                    for port in response["ports"]:
+                        print(f"  Description: {port.get('description', '')}")
+                        print(f"  Protocol: {port.get('protocol', '')}")
+                        print(f"  Listen Port: {port.get('listen_port', '')}")
+                        print(f"  Target Port: {port.get('target_port', '')}")
+                        print(f"  Target Address: {port.get('target_address', '')}")
+                        
+
+                # Exibe o endereço de escuta
+                if "listen_address" in response:
+                    print(f"Listen Address: {response.get('listen_address', '')}")
+
+                # Exibe a localização
+                if "location" in response:
+                    print(f"Location: {response.get('location', '')}")
+                    
+            else:
+            print("Unexpected response format:", response)
+
+
+        #----------------------------------------------------------------------
+
+
+
+
         time.sleep(1.7)
         # Receber a resposta do servidor
-        response_json = client_socket.recv(1024).decode()
-        response = json.loads(response_json)
+        #response_json = client_socket.recv(1024).decode()
+        #response_json_full = receive_full_response(response_json)
+        
+        response_json_full = receive_full_response(client_socket)
+        response = json.loads(response_json_full)
+
+        
 
         # mosrar a resposta do servidor
-        print("Status:", response["Status"])
-        print(response)
-
+        #print("Status:", response["Status"])
+        #print(response)
+        display_response(response)
         
         # Fechar o socket do cliente
         client_socket.close()

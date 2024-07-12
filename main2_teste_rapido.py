@@ -123,10 +123,10 @@ def host_get_nat_ip_ports():
         print(external_ip)
 
 
-        host_nat_ip_ports(action, external_ip)
+        response = host_nat_ip_ports(action, external_ip)
 
         
-        return jsonify(data, "Solicitacao bem sucedida!"), 201 
+        return jsonify(response, "Solicitacao bem sucedida!"), 201 
 
 
 
