@@ -61,32 +61,26 @@ def host_nat_ip_ports(action, external_ip):
 
         def display_response(response):
             if isinstance(response, dict):
-                # Exibe as portas
                 if "ports" in response:
-                    print("Ports:")
                     for port in response["ports"]:
-                        print(f"  Description: {port.get('description', '')}")
-                        print(f"  Protocol: {port.get('protocol', '')}")
-                        print(f"  Listen Port: {port.get('listen_port', '')}")
-                        print(f"  Target Port: {port.get('target_port', '')}")
-                        print(f"  Target Address: {port.get('target_address', '')}")
-                        
+                        print(f"Description: {port.get('description', '')}")
+                        print(f"Protocol: {port.get('protocol', '')}")
+                        print(f"Listen Port: {port.get('listen_port', '')}")
+                        print(f"Target Port: {port.get('target_port', '')}")
+                        print(f"Target Address: {port.get('target_address', '')}")
 
-                # Exibe o endereço de escuta
                 if "listen_address" in response:
                     print(f"Listen Address: {response.get('listen_address', '')}")
 
-                # Exibe a localização
                 if "location" in response:
                     print(f"Location: {response.get('location', '')}")
-                   
+
             elif isinstance(response, list):
-                print("Response is a list of dictionaries:")
                 for item in response:
                     if isinstance(item, dict):
                         print(json.dumps(item, indent=2))
                     else:
-                        print(f"Unexpected item in list: {item}")       
+                        print(f"Unexpected item in list: {item}")
             else:
                 print("Unexpected response format:", response)
 
